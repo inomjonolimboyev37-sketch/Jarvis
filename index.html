@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Jarvis — o‘zbek tilidagi shaxsiy AI yordamchi interfeysi.">
+  <title>Jarvis — Shaxsiy yordamchingiz</title>
+  <style>
+    :root{color-scheme:dark;--bg:#07111f;--panel:#0c1929;--panel2:#101f32;--line:rgba(160,190,224,.13);--text:#eef5ff;--muted:#91a4bc;--blue:#69b7ff;--cyan:#62e1e2;--shadow:0 24px 80px rgba(0,0,0,.32)}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#163353 0,transparent 52%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.01em}
+    button,textarea{font:inherit}button{color:inherit}.app{max-width:1180px;min-height:100vh;margin:auto;padding:26px 34px 30px;display:flex;flex-direction:column}.topbar{display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:39px;height:39px;border:1px solid rgba(98,225,226,.5);border-radius:13px;display:grid;place-items:center;color:var(--cyan);font-weight:800;font-size:19px;background:linear-gradient(145deg,rgba(98,225,226,.14),rgba(105,183,255,.07));box-shadow:0 0 24px rgba(98,225,226,.08)}.brand-name{font-size:17px;font-weight:700;letter-spacing:.1em}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}.status{display:flex;align-items:center;gap:8px;color:#a8bdd3;font-size:12px;padding:8px 12px;border:1px solid var(--line);border-radius:99px;background:rgba(12,25,41,.65)}.dot{width:7px;height:7px;border-radius:50%;background:#61d6a5;box-shadow:0 0 12px #61d6a5}
+    main{width:min(790px,100%);margin:42px auto 24px;flex:1;display:flex;flex-direction:column}.hero{text-align:center;margin:0 0 27px}.orb{position:relative;width:104px;height:104px;border-radius:50%;margin:0 auto 19px;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#28527c,#11263e 52%,#091522 74%);border:1px solid rgba(105,183,255,.48);box-shadow:0 0 0 9px rgba(105,183,255,.035),0 0 55px rgba(55,157,231,.19),inset 0 0 27px rgba(98,225,226,.12)}.orb:before,.orb:after{content:"";position:absolute;inset:-9px;border:1px solid rgba(98,225,226,.2);border-radius:50%;animation:pulse 3.2s ease-out infinite}.orb:after{animation-delay:1.6s}.orb-core{font-size:32px;font-weight:300;color:#bcecff;text-shadow:0 0 20px #62dce9}.hero h1{font-size:clamp(25px,4vw,36px);line-height:1.2;margin:0 0 8px;letter-spacing:-.04em}.hero p{margin:0;color:var(--muted);font-size:14px}.hero p span{color:#d5e6f8}.chat{flex:1;min-height:170px;max-height:calc(100vh - 420px);overflow-y:auto;padding:2px 6px 15px;scrollbar-width:thin;scrollbar-color:#273d56 transparent}.welcome{margin:10px auto 20px;padding:16px 19px;max-width:620px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(130deg,rgba(16,31,50,.92),rgba(10,23,38,.78));color:#bfcee0}.welcome strong{display:block;color:var(--text);margin-bottom:4px;font-size:14px}.welcome p{margin:0;font-size:13px}.message{display:flex;margin:14px 0;gap:10px;animation:appear .24s ease}.message.user{justify-content:flex-end}.avatar{flex:0 0 28px;height:28px;border-radius:9px;display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--cyan);background:rgba(98,225,226,.1);border:1px solid rgba(98,225,226,.15)}.bubble{max-width:min(82%,570px);padding:11px 15px;border:1px solid var(--line);border-radius:4px 14px 14px 14px;background:rgba(16,31,50,.78);white-space:pre-wrap;overflow-wrap:anywhere}.user .bubble{border-radius:14px 4px 14px 14px;background:linear-gradient(135deg,#164570,#123456);border-color:rgba(105,183,255,.2)}.time-label{font-size:10px;color:#71869e;margin:5px 3px 0}.user .time-label{text-align:right}.typing{display:flex;gap:5px;padding:6px 3px}.typing i{width:6px;height:6px;border-radius:50%;background:#82a8ca;animation:bounce .8s infinite alternate}.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+    .suggestions{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:6px 0 18px}.suggestion{background:rgba(12,25,41,.8);border:1px solid var(--line);border-radius:99px;padding:8px 13px;color:#b7c8db;font-size:12px;cursor:pointer;transition:.2s}.suggestion:hover{border-color:rgba(98,225,226,.48);color:#eafaff;transform:translateY(-1px)}.composer{padding:9px;border:1px solid rgba(154,189,224,.2);border-radius:18px;background:rgba(12,25,41,.93);box-shadow:var(--shadow);display:flex;align-items:flex-end;gap:8px}.composer:focus-within{border-color:rgba(98,225,226,.45);box-shadow:0 0 0 3px rgba(98,225,226,.06),var(--shadow)}textarea{resize:none;flex:1;min-height:44px;max-height:150px;padding:12px 10px 9px;background:transparent;border:0;outline:0;color:var(--text);line-height:1.45}textarea::placeholder{color:#758ba5}.icon-btn,.send-btn{width:42px;height:42px;border:0;border-radius:12px;display:grid;place-items:center;cursor:pointer;transition:.18s}.icon-btn{background:transparent;color:#91a8c0}.icon-btn:hover,.icon-btn.active{background:rgba(98,225,226,.11);color:var(--cyan)}.send-btn{background:linear-gradient(135deg,#71dbe4,#62aefa);color:#061422}.send-btn:hover{filter:brightness(1.09);transform:translateY(-1px)}.send-btn:disabled{opacity:.42;cursor:not-allowed;transform:none}.composer-hint{text-align:center;color:#667e98;font-size:11px;margin:11px 0 0}.footer{display:flex;justify-content:space-between;color:#61758c;font-size:11px;padding-top:16px;border-top:1px solid rgba(160,190,224,.08)}.footer button{border:0;background:none;color:#8298b0;cursor:pointer;font-size:11px}.footer button:hover{color:var(--cyan)}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#142941;border:1px solid var(--line);border-radius:10px;padding:10px 15px;color:#dcecff;transition:.2s;z-index:2}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @keyframes pulse{0%{transform:scale(.92);opacity:.7}100%{transform:scale(1.24);opacity:0}}@keyframes bounce{to{transform:translateY(-5px);opacity:.5}}@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:600px){.app{padding:18px 16px 20px}main{margin:32px auto 18px}.orb{width:84px;height:84px;margin-bottom:16px}.orb-core{font-size:27px}.chat{max-height:none;min-height:160px}.footer{gap:10px}.brand-sub{font-size:9px}.suggestions{gap:7px}.suggestion{font-size:11px;padding:7px 10px}.composer{border-radius:15px}.icon-btn,.send-btn{width:39px;height:39px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">J</div><div><div class="brand-name">JARVIS</div><div class="brand-sub">Shaxsiy yordamchi</div></div></div>
+      <div class="status"><span class="dot"></span><span id="statusText">Tizim tayyor</span></div>
+    </header>
+    <main>
+      <section class="hero" aria-label="Jarvis yordamchisi">
+        <div class="orb" aria-hidden="true"><div class="orb-core">J</div></div>
+        <h1 id="greeting">Assalomu alaykum!</h1>
+        <p>Men <span>Jarvis</span>, sizning shaxsiy yordamchingizman.</p>
+      </section>
+      <section class="chat" id="chat" aria-live="polite" aria-label="Suhbat">
+        <div class="welcome" id="welcome"><strong>Bugun sizga qanday yordam beray?</strong><p>Savolingizni yozing yoki mikrofon tugmasini bosib gapiring. Suhbat shu qurilmada ishlaydi.</p></div>
+      </section>
+      <section class="suggestions" id="suggestions" aria-label="Tezkor savollar">
+        <button class="suggestion" data-prompt="Hozir soat necha?">◷ &nbsp;Hozir soat necha?</button>
+        <button class="suggestion" data-prompt="Bugun qaysi kun?">▦ &nbsp;Bugun qaysi kun?</button>
+        <button class="suggestion" data-prompt="Men nimalarni so‘ray olaman?">✦ &nbsp;Imkoniyatlar</button>
+      </section>
+      <form class="composer" id="composer">
+        <button type="button" class="icon-btn" id="micBtn" aria-label="Ovoz bilan yozish" title="Ovoz bilan yozish">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg>
+        </button>
+        <textarea id="input" rows="1" placeholder="Jarvisga xabar yozing..." aria-label="Xabaringiz"></textarea>
+        <button type="submit" class="send-btn" id="sendBtn" aria-label="Yuborish" disabled>
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+        </button>
+      </form>
+      <p class="composer-hint">Enter — yuborish &nbsp;·&nbsp; Shift + Enter — yangi qator</p>
+    </main>
+    <footer class="footer"><span>Jarvis · Shaxsiy yordamchingiz</span><button type="button" id="clearBtn">Suhbatni tozalash</button></footer>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    const chat=document.getElementById('chat'), input=document.getElementById('input'), sendBtn=document.getElementById('sendBtn'), composer=document.getElementById('composer'), welcome=document.getElementById('welcome'), suggestions=document.getElementById('suggestions'), statusText=document.getElementById('statusText'), micBtn=document.getElementById('micBtn'), toast=document.getElementById('toast');
+    let toastTimer, recognition;
+    const escapeHTML=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    function notify(text){toast.textContent=text;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2800)}
+    function addMessage(text,who){welcome.hidden=true;suggestions.hidden=true;const item=document.createElement('article');item.className='message '+who;const safe=escapeHTML(text);item.innerHTML=(who==='assistant'?'<div class="avatar">J</div>':'')+'<div><div class="bubble">'+safe+'</div><div class="time-label">'+new Intl.DateTimeFormat('uz-UZ',{hour:'2-digit',minute:'2-digit'}).format(new Date())+'</div></div>';chat.appendChild(item);chat.scrollTop=chat.scrollHeight}
+    function replyTo(text){const q=text.toLocaleLowerCase('uz-UZ').trim();const now=new Date();
+      if(/\b(soat|vaqt)\b/.test(q))return 'Hozir soat '+new Intl.DateTimeFormat('uz-UZ',{hour:'2-digit',minute:'2-digit'}).format(now)+'.';
+      if(/\b(sana|kun|bugun)\b/.test(q))return 'Bugun '+new Intl.DateTimeFormat('uz-UZ',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(now)+'.';
+      if(/(salom|assalomu|alaykum|hello|hi\b)/.test(q))return 'Va alaykum assalom! Sizga qanday yordam bera olaman?';
+      if(/(isming|kimsan|o‘zing haqingda|o'zing haqingda)/.test(q))return 'Men Jarvis — brauzeringizda ishlaydigan shaxsiy yordamchi interfeysman. Hozircha vaqt va sanani ayta olaman, suhbatlashaman va ovozli kiritishni qo‘llab-quvvatlayman.';
+      if(/(nima qila|imkoniyat|yordam|buyruq)/.test(q))return 'Hozircha sizga vaqt va sanani aytaman, salomlashaman hamda ovoz orqali xabar kiritishga yordam beraman. Ovoz funksiyasi brauzeringiz qo‘llab-quvvatlasa ishlaydi. Aqlli AI javoblari uchun keyinchalik server tomondagi AI xizmatini ulash mumkin.';
+      if(/\d\s*[+\-*/]\s*\d/.test(q)){const m=q.match(/(-?\d+(?:\.\d+)?)\s*([+\-*/])\s*(-?\d+(?:\.\d+)?)/);if(m){const a=Number(m[1]),b=Number(m[3]);if(m[2]==='/'&&b===0)return 'Nolga bo‘lish mumkin emas.';const n={'+':a+b,'-':a-b,'*':a*b,'/':a/b}[m[2]];return 'Javob: '+new Intl.NumberFormat('uz-UZ',{maximumFractionDigits:8}).format(n)+'.'}}
+      return 'Xabaringizni oldim. Hozircha men brauzer ichidagi oddiy yordamchiman — vaqt, sana, salomlashish va sodda hisob-kitoblarda yordam bera olaman. To‘liq AI javoblari uchun AI xizmatini xavfsiz server orqali ulash kerak.';
+    }
+    function send(text){const value=(text??input.value).trim();if(!value)return;addMessage(value,'user');input.value='';resizeInput();sendBtn.disabled=true;const typing=document.createElement('div');typing.className='message';typing.innerHTML='<div class="avatar">J</div><div class="typing" aria-label="Jarvis javob yozmoqda"><i></i><i></i><i></i></div>';chat.appendChild(typing);chat.scrollTop=chat.scrollHeight;setTimeout(()=>{typing.remove();addMessage(replyTo(value),'assistant')},450)}
+    function resizeInput(){input.style.height='auto';input.style.height=Math.min(input.scrollHeight,150)+'px';sendBtn.disabled=!input.value.trim()}
+    composer.addEventListener('submit',e=>{e.preventDefault();send()});input.addEventListener('input',resizeInput);input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}});
+    document.querySelectorAll('.suggestion').forEach(button=>button.addEventListener('click',()=>send(button.dataset.prompt)));
+    document.getElementById('clearBtn').addEventListener('click',()=>{chat.querySelectorAll('.message').forEach(el=>el.remove());welcome.hidden=false;suggestions.hidden=false;notify('Suhbat tozalandi')});
+    const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(SpeechRecognition){recognition=new SpeechRecognition();recognition.lang='uz-UZ';recognition.interimResults=false;recognition.maxAlternatives=1;recognition.onstart=()=>{micBtn.classList.add('active');statusText.textContent='Tinglayapman...'};recognition.onend=()=>{micBtn.classList.remove('active');statusText.textContent='Tizim tayyor'};recognition.onresult=e=>{input.value=e.results[0][0].transcript;resizeInput();input.focus()};recognition.onerror=e=>notify(e.error==='not-allowed'?'Mikrofon uchun ruxsat bering.':'Ovoz aniqlanmadi. Qayta urinib ko‘ring.')}
+    micBtn.addEventListener('click',()=>{if(!recognition){notify('Ovozli kiritish bu brauzerda qo‘llab-quvvatlanmaydi.');return}try{recognition.start()}catch{recognition.stop()}});
+    const hour=new Date().getHours();document.getElementById('greeting').textContent=hour<11?'Xayrli tong!':hour<18?'Xayrli kun!':'Xayrli kech!';
+  </script>
+</body>
+</html>
